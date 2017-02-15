@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <title>COntroller_directives</title>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
+
+    <script type="text/javascript">
+      var myAppmodule = angular.module('myApp',[]);
+      myAppmodule.controller('foodController',function($scope){
+        $scope.foods = [
+          {name:'Pasta'}
+        ];
+
+        $scope.addFood = function(){
+          $scope.foods.push($scope.newFood);
+          $scope.newFood ={};
+        }
+
+      });
+    </script>
+  </head>
+  <body>
+    <div ng-controller= 'foodController'>
+
+      <form >
+       Favourite Food: <input type="text" ng-model="newFood.name">
+
+      <input type="submit" value="Add Food"ng-click='addFood()'>
+        </form>
+        <div ng-if = "newFood.name">
+          <h3>Hello</h3>
+          <p>Currently typing: {{newFood.name}} </p>
+
+        </div>
+
+      <ul>
+        <li ng-repeat = "food in foods">{{food.name}}</li>
+      </ul>
+      <ul>
+        
+        <div ng-hide="newFood.name">
+
+        </div>
+        <p>Filter with chicken</p>
+        <li ng-repeat = "food in foods | filter: 'chicken'">{{food.name}}</li>
+      </ul>
+    </div>
+  </body>
+</html>
