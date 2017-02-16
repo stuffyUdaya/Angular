@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html ng-app= "myApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Product Factory</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script type="text/javascript">
+      var app = angular.module('myApp',[]);
+      app.factory('productFactory',function(){
+        var products = [
+
+        ];
+        var factory ={};
+        factory.addProducts = function(product){
+          products.push(product);
+          console.log(products);
+          return true;
+
+        }
+        factory.list = function(callback){
+          callback(products);
+        }
+        factory.deleteProducts = function(item){
+          products.splice(item,1);
+        }
+        return factory;
+      });
+      app.controller('productsController',['$scope','productFactory',function($scope,productFactory){
+        $scope.products = [];
+        $scope.saveProduct = function(){
+          productFactory.addProducts($scope.newProduct);
+          $scope.newProduct = {};
+        }
+        productFactory.list(function(products){
+          $scope.products = products
+        });
+
+
+      $scope.removeProducts=function(item){
+         productFactory.deleteProducts(item);
+      }
+
+      }])
+    </script>
+  </head>
+  <body>
+    <div ng-controller = "productsController">
+      <form>
+
+        productName:<input type="text" ng-model="newProduct.name">
+        productPrice:<input type="number" ng-model = "newProduct.price">
+        <input type="submit" value="Create Product" ng-click ="saveProduct()">
+      </form>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+        <tr ng-repeat=" product in products">
+          <td>{{product.name}}</td>
+          <td>{{product.price | currency}}</td>
+          <td>{{$index}}</td>
+          <td><form> <input type="submit"value="Delete User" ng-click="removeProducts($index)">
+
+          </form></td>
+        </tr>
+      </table>
+
+    </div>
+
+  </body>
+</html>
