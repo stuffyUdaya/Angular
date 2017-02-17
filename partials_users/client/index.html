@@ -57,12 +57,14 @@ myApp.factory('userFactory',function(){
 /////////////////////////////////////////////
 
     //  build the controllers
-    myApp.controller('view1Controller',['$scope','userFactory',function($scope,userFactory){
+    myApp.controller('view1Controller',['$scope','userFactory','$location',function($scope,userFactory,$location){
+      console.log($location);
         $scope.users =[];
         $scope.saveUser = function(){
 
           userFactory.addUsers($scope.newUser);
           $scope.newUser={};
+          $location.url('/list');
         }
         userFactory.list(function(users){
           $scope.users = users;
