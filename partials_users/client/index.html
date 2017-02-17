@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+  <head>
+    <title></title>
+ <!-- THESE TWO VERSIONS BELOW MUST MATCH (good thing bower will catch that for us, but be aware if you are using CDN's)!!! -->
+    <script src="angular/angular.js"></script>
+    <script src="angular-route/angular-route.js"></script>
+<script>
+    //  inject the ngRoute dependency in the module.
+    var myApp = angular.module('myApp', ['ngRoute']);
+    //  use the config method to set up routing:
+    myApp.config(function ($routeProvider) {
+      $routeProvider
+
+      .when('/users',{
+          templateUrl: 'partials/customizeUsers.html'
+      })
+      .when('/list',{
+          templateUrl: 'partials/Userlist.html',
+          controller: 'view2Controller'
+
+      })
+      .otherwise({
+        redirectTo: '/users'
+      });
+    });
+//////////////////////////////////////////////
+myApp.factory('userFactory',function(){
+  var users = [];
+  var factory ={};
+  factory.addUsers = function(user){
+    users.push(user);
+
+  }
+  factory.list = function(callback){
+    callback(users);
+  }
+  factory.deleteUsers = function(item){
+    console.log('hi');
+    users.splice(item,1);
+  }
+
+
+  return factory;
+});
+
+
+
+
+/////////////////////////////////////////////
+
+    //  build the controllers
+    myApp.controller('view1Controller',['$scope','userFactory',function($scope,userFactory){
+        $scope.users =[];
+        $scope.saveUser = function(){
+
+          userFactory.addUsers($scope.newUser);
+          $scope.newUser={};
+        }
+        userFactory.list(function(users){
+          $scope.users = users;
+        });
+        $scope.removeUsers=function(item){
+           userFactory.deleteUsers(item);
+        }
+
+      }]);
+
+
+    ////////////////////////////////////////////////////
+    myApp.controller('view2Controller',['$scope','userFactory',function($scope,userFactory){
+          $scope.users =[];
+
+          userFactory.list(function(users){
+            $scope.users = users;
+          });
+          }]);
+
+
+    ///////////////////////////////////////////////////////////////
+    </script>
+  </head>
+  <body>
+    <div ng-app='myApp'>
+      <h3>Welcome to Users Portal</h3>
+      <a href="#!/users">Add a User</a>
+      <a href="#!/list">View Users</a>
+      <div ng-view></div>
+    </div>
+    </body>
+</html>

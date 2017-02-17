@@ -1,0 +1,17 @@
+<div ng-controller="view2Controller">
+  <h3>Hey, you can view all the users here</h3>
+  <table>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Favourite Language</th>
+      <th>Actions</th>
+
+    </tr>
+    <tr ng-repeat="user in users">
+      <td>{{user.fname}}</td>
+      <td>{{user.lname}}</td>
+      <td>{{user.favlang}}</td>
+    </tr>
+  </table>
+</div>
