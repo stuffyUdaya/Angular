@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+  <head>
+    <title></title>
+ <!-- THESE TWO VERSIONS BELOW MUST MATCH (good thing bower will catch that for us, but be aware if you are using CDN's)!!! -->
+    <script src="angular/angular.js"></script>
+    <script src="angular-route/angular-route.js"></script>
+    <title>User Factory</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+
+    //  inject the ngRoute dependency in the module.
+    var myApp = angular.module('myApp', ['ngRoute']);
+    //  use the config method to set up routing:
+    myApp.config(function ($routeProvider) {
+      $routeProvider
+
+      .when('/players',{
+          templateUrl: 'partials/players.html'
+      })
+      .when('/teams',{
+          templateUrl: 'partials/teams.html',
+          controller: 'view2Controller'
+
+      })
+      .otherwise({
+        redirectTo: '/players'
+      });
+    });
+//////////////////////////////////////////////
+myApp.factory('playerFactory',function(){
+  var players = [];
+  var factory ={};
+  factory.addPlayers = function(player){
+    players.push(player);
+
+  }
+  factory.list = function(callback){
+    callback(players);
+  }
+  factory.deletePlayers = function(item){
+    console.log('hi');
+    players.splice(item,1);
+  }
+
+
+  return factory;
+});
+/////////////////////////////////////////////////
+myApp.factory('teamFactory',function(){
+  var teams = [];
+  var factory ={};
+  factory.addTeams = function(team){
+    teams.push(team);
+
+  }
+  factory.list = function(callback){
+    callback(teams);
+  }
+  factory.deleteTeams = function(item){
+    console.log('hi');
+    teams.splice(item,1);
+  }
+
+
+  return factory;
+});
+
+
+
+
+/////////////////////////////////////////////
+
+    //  build the controllers
+    myApp.controller('view1Controller',['$scope','playerFactory','$location',function($scope,playerFactory,$location){
+      console.log($location);
+        $scope.players =[];
+        $scope.savePlayer = function(){
+
+          playerFactory.addPlayers($scope.newPlayer);
+          $scope.newPlayer={};
+          $location.url('/players');
+        }
+        playerFactory.list(function(players){
+          $scope.players = players;
+        });
+        $scope.removePlayers=function(item){
+           playerFactory.deletePlayers(item);
+        }
+
+      }]);
+
+
+    ////////////////////////////////////////////////////
+    //
+    myApp.controller('view2Controller',['$scope','teamFactory','$location',function($scope,teamFactory,$location){
+      console.log($location);
+        $scope.teams =[];
+        $scope.saveTeam = function(){
+
+          teamFactory.addTeams($scope.newTeam);
+          $scope.newTeam={};
+          $location.url('/teams');
+        }
+        teamFactory.list(function(teams){
+          $scope.teams = teams;
+        });
+        $scope.removeTeams=function(item){
+           teamFactory.deleteTeams(item);
+        }
+
+      }]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ////////myApp.controller('view2Controller',['$scope','userFactory',function($scope,userFactory){
+    //       $scope.users =[];
+    //
+    //       userFactory.list(function(users){
+    //         $scope.users = users;
+    //       });
+    //       }]);
+
+
+    ///////////////////////////////////////////////////////////////
+    </script>
+  </head>
+  <body>
+    <div ng-app='myApp'>
+      <h3>Welcome to Players and teams Portal</h3>
+      <a href="#!/players">Add a Player</a>
+      <a href="#!/teams">View Teams</a>
+      <div ng-view></div>
+    </div>
+    </body>
+</html>

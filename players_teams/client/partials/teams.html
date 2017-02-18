@@ -1,0 +1,26 @@
+<div ng-controller="view2Controller">
+  <h3>You can add teams here</h3>
+  <form>
+    Team: <input type="text"ng-model="newTeam.tname">
+    <input type="submit"value="Add Team"ng-click="saveTeam()">
+  </form>
+
+  <table class= "table">
+    <thead>
+      <tr class="error">
+        <th>TeamName</th>
+        <th>Actions</th>
+      </tr>
+      <tr class="info" ng-repeat="team in teams">
+        <td>{{team.tname}}</td>
+        <td><form>
+          <input type="submit"value="Delete Team" ng-click="removeTeams($index)">
+
+        </form></td>
+
+      </tr>
+    </thead>
+
+  </table>
+
+</div>

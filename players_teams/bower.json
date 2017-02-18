@@ -1,0 +1,17 @@
+{
+  "name": "players_teams",
+  "homepage": "https://github.com/stuffyUdaya/Angular",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "^1.6.2"
+  }
+}
