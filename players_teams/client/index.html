@@ -27,6 +27,11 @@
           controller: 'view2Controller'
 
       })
+
+      .when('/assosciations',{
+        templateUrl: 'partials/assosciations.html',
+        controller: 'assosciationsController'
+      })
       .otherwise({
         redirectTo: '/players'
       });
@@ -115,7 +120,28 @@ myApp.factory('teamFactory',function(){
 
       }]);
 
+////////////////////////////////////////////////////////////////
+myApp.controller('assosciationsController',['$scope','teamFactory','playerFactory','$location',function($scope,teamFactory,playerFactory,$location){
 
+teamFactory.list(function(teams){
+  $scope.teams = teams;
+})
+
+playerFactory.list(function(players){
+  $scope.players = players;
+})
+$scope.assosciations=[];
+$scope.addAssosc = function(){
+  $scope.assosciations.push($scope.newAssosc);
+  console.log($scope.assosciations);
+  $scope.newAssosc = {};
+}
+$scope.removeAssosc=function(item){
+  $scope.assosciations.splice(item,1);
+}
+$location.url('/assosciations');
+
+}]);
 
 
 
@@ -145,8 +171,9 @@ myApp.factory('teamFactory',function(){
   <body>
     <div ng-app='myApp'>
       <h3>Welcome to Players and teams Portal</h3>
-      <a href="#!/players">Add a Player</a>
-      <a href="#!/teams">View Teams</a>
+      <a href="#!/players"><button type="button" class="btn btn-primary">Add a Player</button></a>
+      <a href="#!/teams"><button type="button" class="btn btn-info">View Teams</button></a>
+      <a href="#!/assosciations"><button type="button" class="btn btn-warning">View Player Assosciations</button></a>
       <div ng-view></div>
     </div>
     </body>
