@@ -9,12 +9,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src= "https://cdnjs.cloudflare.com/ajax/libs/angular-messages/1.6.2/angular-messages.min.js">
+
+  </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
 
     //  inject the ngRoute dependency in the module.
-    var myApp = angular.module('myApp', ['ngRoute']);
+    var myApp = angular.module('myApp', ['ngRoute','ngMessages']);
     //  use the config method to set up routing:
     myApp.config(function ($routeProvider) {
       $routeProvider
@@ -32,12 +35,17 @@
         templateUrl: 'partials/assosciations.html',
         controller: 'assosciationsController'
       })
+      .when('/:teamname',{
+          templateUrl: 'partials/team.html',
+          controller: 'teamcontroller'
+ })
       .otherwise({
         redirectTo: '/players'
       });
     });
 //////////////////////////////////////////////
 myApp.factory('playerFactory',function(){
+  console.log("created player f")
   var players = [];
   var factory ={};
   factory.addPlayers = function(player){
@@ -74,13 +82,31 @@ myApp.factory('teamFactory',function(){
 
   return factory;
 });
+////////////////////////////////////////////////////////////////
 
+myApp.factory('assoscFactory',function(){
+  var assosciations = [];
+  var factory = {};
+  factory.addAssosc = function(item){
+    assosciations.push(item);
+    console.log(assosciations);
+  }
+  factory.deleteAssosc = function(item){
+    assosciations.splice(item,1);
+    console.log(assosciations);
+  }
+  factory.list= function(callback){
+    callback(assosciations);
+    console.log(assosciations);
+  }
+  return factory;
+})
 
 
 
 /////////////////////////////////////////////
 
-    //  build the controllers
+    //  build the controllers players
     myApp.controller('view1Controller',['$scope','playerFactory','$location',function($scope,playerFactory,$location){
       console.log($location);
         $scope.players =[];
@@ -105,11 +131,12 @@ myApp.factory('teamFactory',function(){
     myApp.controller('view2Controller',['$scope','teamFactory','$location',function($scope,teamFactory,$location){
       console.log($location);
         $scope.teams =[];
+        $location.url('/teams');
         $scope.saveTeam = function(){
 
           teamFactory.addTeams($scope.newTeam);
           $scope.newTeam={};
-          $location.url('/teams');
+
         }
         teamFactory.list(function(teams){
           $scope.teams = teams;
@@ -120,9 +147,13 @@ myApp.factory('teamFactory',function(){
 
       }]);
 
-////////////////////////////////////////////////////////////////
-myApp.controller('assosciationsController',['$scope','teamFactory','playerFactory','$location',function($scope,teamFactory,playerFactory,$location){
 
+
+
+
+////////////////////////////////////////////////////////////////
+myApp.controller('assosciationsController',['$scope','teamFactory','playerFactory','assoscFactory','$location',function($scope,teamFactory,playerFactory,assoscFactory,$location){
+console.log("created assosciationsController")
 teamFactory.list(function(teams){
   $scope.teams = teams;
 })
@@ -131,38 +162,29 @@ playerFactory.list(function(players){
   $scope.players = players;
 })
 $scope.assosciations=[];
-$scope.addAssosc = function(){
-  $scope.assosciations.push($scope.newAssosc);
-  console.log($scope.assosciations);
-  $scope.newAssosc = {};
+$scope.saveAssosc = function(){
+  assoscFactory.addAssosc($scope.newAssosc);
+  $scope.newAssosc ={};
 }
+assoscFactory.list(function(assosciations){
+  $scope.assosciations =assosciations;
+})
 $scope.removeAssosc=function(item){
-  $scope.assosciations.splice(item,1);
+  assoscFactory.deleteAssosc(item);
 }
 $location.url('/assosciations');
 
 }]);
+//////////////////////////////////
+myApp.controller('teamcontroller',['$scope','assoscFactory','$routeParams','$location',function($scope,assoscFactory,$routeParams,$location){
+  console.log('5'*10);
+  console.log('team',$routeParams);
+
+  $scope.param = $routeParams;
+  $location.url('/:teamname')
+}]);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    ////////myApp.controller('view2Controller',['$scope','userFactory',function($scope,userFactory){
-    //       $scope.users =[];
-    //
-    //       userFactory.list(function(users){
-    //         $scope.users = users;
-    //       });
-    //       }]);
 
 
     ///////////////////////////////////////////////////////////////
