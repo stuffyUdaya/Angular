@@ -1,10 +1,10 @@
 <div ng-controller = "editController">
-  Fname:<input type="text" ng-model = "user.fname" >
+  Fname:<input type="text" ng-model = "updateuser.fname" value="{{user.fname}}" >
 
 
 
-  Lname:<input type="text" ng-model = "user.lname">
-  Bday:<input type="date | date:'MM/dd/yyyy'" ng-model = "user.bday">
+  Lname:<input type="text" ng-model = "updateuser.lname" value ="{{user.lname}}">
+  Bday:<input type="date" ng-model = "updateuser.bday" value = "{{user.bday| date:'yyyy-MM-dd'}}">
 
   <input type="submit" value="Update user" ng-click = "updateUser()">
 </div>

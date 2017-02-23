@@ -47,17 +47,16 @@ showall: function(req,res){
         update: function(req,res){
 
               console.log("users",req);
-              User.findById(req.params.id,function(err,user){
+              User.update({_id:req.params.id},{fname: req.body.fname,
+              lname:req.body.lname,
+              bday : req.body.bday},function(err,user){
                 if (err){
                   console.log("something went wrong", err);
                 }
                 else{
                   console.log(req.params.id)
-                  user.fname = req.body.fname
-                  user.lname = req.body.lname
-                  user.bday = req.body.bday
-                  user.save()
-                  res.redirect('/');
+
+                                    res.json();
                 }
               });
 },

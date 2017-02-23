@@ -5,209 +5,31 @@
     <title></title>
     <script src="angular/angular.js"></script>
     <script src="angular-route/angular-route.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script type="text/javascript">
+    <script src ="/assets/app.js">
 
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src = "/assets/factories/userFactory.js"></script>
+    <script src = "/assets/controllers/deleteController.js"></script>
+    <script src = "/assets/controllers/editController.js"></script>
+    <script src = "/assets/controllers/showController.js"></script>
+    <script src = "/assets/controllers/userController.js"></script>
 
   //  inject the ngRoute dependency in the module.
-  var myApp = angular.module('myApp', ['ngRoute']);
-  //  use the config method to set up routing:
-  myApp.config(function ($routeProvider) {
-    $routeProvider
 
-    .when('/',{
-        templateUrl: 'partials/showall.html',
-        controller:'userController'
-    })
-    .when('/new',{
-        templateUrl: 'partials/newuser.html',
-        controller:'userController'
-    })
-    .when('/show/:id',{
-        templateUrl: 'partials/showuser.html',
-        controller:'showController'
-    })
-
-    .when('/edit/:id',{
-        templateUrl: 'partials/edituser.html',
-        controller:'editController'
-    })
-
-    .when('/delete/:id',{
-        templateUrl: 'partials/showall.html',
-        controller:'deleteController'
-    })
-
-  });
 
 ///////////////////////////////////
 
-myApp.factory('userFactory',['$http',function($http){
-  console.log("created user u ")
-  var users = [];
-  var factory ={};
-  factory.saveUser = function(saveUser){
-    console.log(saveUser);
-    users.push(saveUser);
-    console.log(saveUser);
-    $http.post('/new', saveUser).then(function(){
-      console.log(saveUser);
-      console.log('user record created');
-
-    })
-
-  }
-
-  factory.showAll = function(callback){
-    console.log(callback);
-    $http.get('/all').then(function(response){
-      console.log('response is', response.data);
-      var users = response.data;
-      console.log(users);
-      callback(users);
-    })
-  }
-
-  factory.showUser = function(id,callback){
-    console.log(id);
-    console.log(callback);
-    $http.get('/users/'+id).then(function(response){
-      console.log('response is', response.data);
-      var showuser = response.data;
-      console.log(showuser);
-      callback(showuser);
-    })
-  }
-
-
-
-  factory.updateUser = function(updateUser){
-
-    console.log(updateUser);
-
-    $http.put('/update/'+updateUser._id,updateUser).then(function(){
-      console.log(updateUser);
-      console.log('user record updated');
-
-    })
-  }
-
-    factory.deleteUser = function(deleteUser){
-      console.log(deleteUser);
-        $http.delete('/delete/'+deleteUser).then(function(){
-          console.log("deleted");
-    });
-}
-
-
-
-  // factory.showOne = function(id,callback){
-  //
-  //   $http.get('/users/'+id).then(function(response){
-  //     // callback(response.data);
-  //     console.log('response is', response.data);
-  //     var showuser = response.data;
-  //     callback(showuser);
-  //     console.log("jfcfshowuser",showuser);
-  //   })
-  //
-  // }
-
-
-  return factory;
-}]);
 //////////////////////////////////
 
-myApp.controller('userController',['$scope','userFactory','$http','$location',function($scope,userFactory,$http,$location){
-
-        // $scope.users =[];
-        $scope.saveUser = function(){
-          $location.url('/')
-          userFactory.saveUser($scope.newUser);
-          console.log($scope.newUser);
-          $scope.newUser={};
-
-        }
-        $scope.users =[];
-        userFactory.showAll(function(users){
-          console.log('hello');
-          $scope.users = users;
-          console.log("Scope",$scope.users)
-        });
-
-
-        // $scope.findOne = function(id){
-        //   console.log("id is",id);
-        // userFactory.showOne(id, function(data){
-        //   console.log("data isgudeftyyt",data.users[0].fname);
-        //   $scope.data = data;
-        //   console.log($scope.data)
-        //   var id = $scope.data.users[0]._id
-        //
-        // })
-        // $location.url('/show/'+id)
-        //
-        //
-        // }
-
-
-      }]);
 
 ////////////////////////////////////////////////
-      myApp.controller('showController',['$scope','userFactory','$http','$location','$routeParams',function($scope,userFactory,$http,$location,$routeParams){
-
-        $scope.data = [];
-
-        userFactory.showUser($routeParams.id,function(data){
-
-          console.log('hello');
-          $scope.data = data;
-          console.log("Scope",$scope.data)
-        });
-
-          }]);
 
 
 //////////////////////////////////////////////
 
-myApp.controller('editController',['$scope','userFactory','$http','$location','$routeParams',function($scope,userFactory,$http,$location,$routeParams){
-
-  $scope.data = [];
-
-  userFactory.showUser($routeParams.id,function(data){
-
-    $scope.data = data;
-    $scope.user= $scope.data.users[0];
-    console.log('hello');
-    console.log("Scope",$scope.data)
-  });
-
-
-  $scope.updateUser = function(){
-
-    userFactory.updateUser($scope.user);
-    console.log($scope.user);
-    $scope.user={};
-    $location.url('/')
-
-  }
-
-    }]);
-
 
 ////////////////////////////////////////
-
-myApp.controller('deleteController',['$scope','userFactory','$http','$location','$routeParams',function($scope,userFactory,$http,$location,$routeParams){
-
-
-      $location.url('/');
-      userFactory.deleteUser($routeParams.id);
-      console.log(routeParams.id);
-
-
-
-
-}]);
 
 
 
@@ -216,13 +38,13 @@ myApp.controller('deleteController',['$scope','userFactory','$http','$location',
 /////////////////////
 
 
-    </script>
+
   </head>
   <body>
-    <div ng-app = 'myApp'>
-      <p>Hi</p>
-      <div ng-view></div>
 
-    </div>
+      <p>Hi</p>
+      <div ng-view = " "></div>
+
+
   </body>
 </html>
