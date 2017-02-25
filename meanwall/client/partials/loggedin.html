@@ -1,0 +1,30 @@
+<div ng-controller= "logController">
+  <h1>Hi  "{{cookies.name}}" Welcome {{cookies.id}} to full MEAN Wall</h1>
+    <form>
+      <input type="submit"value="logout" ng-click = "logout()">
+    </form>
+
+    <form ng-controller = "postController" ng-submit = "addPost(cookies)">
+      <p>Post a Message:</p>
+      <textarea rows="8" cols="80" ng-model = "newpost.message" required></textarea>
+
+      <input type="submit" value="Post a Message">
+
+    </form>
+
+
+    <div ng-controller = "postController">
+
+      <div ng-repeat = "post in posts">
+            <p><span style="background-color:red">{{post.user.name}}</span> posted:</p>
+            <p><span style="color:blue">{{post.msg}}</span> at {{post.createdAt}}</p>
+            <form ng-submit = "addComment(cookies)">
+              <textarea rows="3" cols="40" ng-model ="newcomment.message" required></textarea>
+              <input type="submit"value="Comment">
+            </form>
+
+      </div>
+
+    </div>
+
+</div>
