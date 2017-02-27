@@ -1,10 +1,12 @@
 <div ng-controller= "logController">
-  <h1>Hi  "{{cookies.name}}" Welcome {{cookies.id}} to full MEAN Wall</h1>
+  <h1>Hi  <span style="color:orangered"> {{cookies.name}} </span>, Welcome to full MEAN Wall</h1>
+  <hr>
     <form>
       <input type="submit"value="logout" ng-click = "logout()">
     </form>
 
-    <form ng-controller = "postController" ng-submit = "addPost(cookies)">
+    <div ng-controller = "postController">
+    <form  ng-submit = "addPost(cookies)">
       <p>Post a Message:</p>
       <textarea rows="8" cols="80" ng-model = "newpost.message" required></textarea>
 
@@ -13,13 +15,19 @@
     </form>
 
 
-    <div ng-controller = "postController">
 
       <div ng-repeat = "post in posts">
+            <hr>
             <p><span style="background-color:red">{{post.user.name}}</span> posted:</p>
-            <p><span style="color:blue">{{post.msg}}</span> at {{post.createdAt}}</p>
-            <form ng-submit = "addComment(cookies)">
-              <textarea rows="3" cols="40" ng-model ="newcomment.message" required></textarea>
+            <h3><span style="color:blue">{{post.msg}}</span></h3> at {{post.createdAt | date:'medium'}}
+            <form  ng-controller = "commentController" ng-submit = "addComment(cookies,post._id)">
+              <div ng-repeat = "x in post.comments">
+              <p><span style="color:brown">{{x.cuser.name}}</span> commented at {{x.createdAt | date:'medium'}}</p>
+              <h4><span style="color:green">{{x.comment}}</span></h4>
+              </div>
+
+
+              <textarea rows="3" cols="40" ng-model ="newcomment.comment" required></textarea>
               <input type="submit"value="Comment">
             </form>
 

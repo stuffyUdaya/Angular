@@ -1,5 +1,9 @@
 var users = require('../controllers/users.js')
 var messages = require('../controllers/messages.js')
+var comments = require('../controllers/comments.js')
+
+// var comments = require('../controllers/comments.js')
+
 module.exports = function(app){
 
 
@@ -29,6 +33,14 @@ app.get('/all',function(req,res){
   messages.showall(req,res);
 })
 
+app.post('/addcomment',function(req,res){
+
+  console.log("$$$$$$$$$$commentssssss$$$$$$$$$$$$$$$$$$$$");
+  console.log('post',req.body);
+  console.log("$$$$$$$$$$$$commentssssssss$$$$$$$$$$$$$$$$$$");
+comments.addcomment(req,res);
+
+})
 
 
 

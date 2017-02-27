@@ -2,6 +2,7 @@ myApp.factory('userFactory',['$http',function($http){
   console.log("created user u ")
   var users = [];
   var factory ={};
+  var message;
 
   factory.saveUser = function(saveUser,callback){
     console.log(callback)
@@ -35,7 +36,7 @@ myApp.factory('userFactory',['$http',function($http){
   factory.savePost = function (post,callback){
     console.log("post",post);
     $http.post('/addpost',post).then(function(response){
-
+      messages.messages.push(response.data.message)
       console.log("response",response);
       console.log('postfactory passed');
       callback(response);
@@ -46,9 +47,19 @@ factory.showAll = function (callback){
     console.log(callback);
     $http.get('/all').then(function(response){
       console.log('response is', response.data);
-      var messages = response.data;
+      messages = response.data;
       console.log(messages);
       callback(messages);
+    })
+  }
+
+  factory.saveComment = function(comment,callback){
+    // console.log("cuser",cuser);
+    console.log('post',comment);
+    $http.post('/addcomment',comment).then(function(response){
+      console.log('comment response through factory',response);
+      console.log("comment factory passed");
+      callback(response);
     })
   }
 

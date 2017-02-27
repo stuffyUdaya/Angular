@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Message = mongoose.model('Message')
+var Comment = mongoose.model('Comment')
 module.exports = {
 
 
@@ -32,7 +33,7 @@ addpost :    function(req,res){
 
 showall  :   function(req,res){
 
-              Message.find({},function(err,messages){
+              Message.find({}).populate('comments').exec(function(err,messages){
                 if(err){
                   console.log("some thing went wrong in showall controller");
                 }
@@ -41,21 +42,9 @@ showall  :   function(req,res){
                     res.json({messages:messages});
                   }
 
-              })
+                          })
 
-}
-
-
-
-
-
-
-
-
-
-
-
-
+},
 
 
 }

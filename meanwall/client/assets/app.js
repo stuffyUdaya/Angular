@@ -1,5 +1,5 @@
 var myApp = angular.module('myApp', ['ngRoute','ngCookies']);
-
+test = 0;
 myApp.config(function ($routeProvider) {
   $routeProvider
   .when('/index',{

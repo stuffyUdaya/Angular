@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var fs = require('fs');
 var path = require('path');
+
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/mean_wall3');
 var models_path = path.join(__dirname, './../models');
