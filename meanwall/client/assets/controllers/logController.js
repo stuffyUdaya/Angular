@@ -21,7 +21,9 @@ $scope.Usercheck = function(){
       $cookies.put('name',data.user.name.first);
       $location.url('/loggedin');
     }
-
+    else{
+      $scope.loginerror = data.err;
+    }
 
   })
 }

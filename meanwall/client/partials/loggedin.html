@@ -20,7 +20,7 @@
             <hr>
             <p><span style="background-color:red">{{post.user.name}}</span> posted:</p>
             <h3><span style="color:blue">{{post.msg}}</span></h3> at {{post.createdAt | date:'medium'}}
-            <form  ng-controller = "commentController" ng-submit = "addComment(cookies,post._id)">
+            <form ng-controller ="commentController" ng-submit = "addComment(cookies,post._id)">
               <div ng-repeat = "x in post.comments">
               <p><span style="color:brown">{{x.cuser.name}}</span> commented at {{x.createdAt | date:'medium'}}</p>
               <h4><span style="color:green">{{x.comment}}</span></h4>

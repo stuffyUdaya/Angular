@@ -27,7 +27,7 @@ module.exports = {
             res.json(err);
           }
           else{
-            res.json({comment:'created'});
+            res.json({comment:'created',comment:comment});
           }
 
 
