@@ -1,0 +1,41 @@
+<div ng-controller= "logController">
+  <h1>Hi  <span style="color:orangered"> {{cookies.name}} </span>, Welcome to Discussion board</h1>
+  <hr>
+    <form>
+      <input type="submit"value="logout" ng-click = "logout()">
+    </form>
+
+    <div ng-controller = "topicController">
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Topic</th>
+          <th>Username</th>
+          <th>Posts</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat = "topic in topics">
+          <td>{{topic.category}}</td>
+          <td><a href="#!/topic/{{topic._id}}">{{topic.name}}</a></td>
+          <td><a href="#!/user/{{topic.user.id}}">{{topic.user.name}}</a></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+<hr>
+<h4>Add a New Topic</h4>
+  <form>
+    <p>Topic: <input type="text" ng-model = "newtopic.name" required></p>
+    <p>Description: <textarea rows="8" cols="80" ng-model = "newtopic.description" required></textarea></p>
+    <p>Category:<select ng-model = "newtopic.category">
+      <option value="rubyonrails">Ruby On Rails</option>
+      <option value="mysql">MySQL</option>
+      <option value="ux">UX</option>
+      <option value="webdevelopment">Web Development</option>
+      <option value="emrgingtopics">Emerging topics</option>
+    </select></p>
+    <input type="submit"value = "Add Topic" ng-click = "saveTopic(cookies)">
+  </form>
+</div>

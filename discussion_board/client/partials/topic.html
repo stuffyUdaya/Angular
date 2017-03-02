@@ -1,0 +1,36 @@
+<div ng-controller = "logController">
+
+<div ng-controller = "showtopicController">
+
+  <p>{{topic.user.name}} posted a topic</p>
+  <h3>cookies  {{cookies.name}}</h3>
+  <h5>{{topic.name}}</h5>
+  <p>Description: {{topic.description}}</p>
+  <p>topic_id: {{topic._id}} </p>
+
+  <p>Post your answer here...</p>
+  <form>
+    <textarea name="name" rows="5" cols="80" ng-model = "newpost.post" required placeholder="Add a post"></textarea>
+    <input type="submit" value="Post" ng-click = 'addPost(topic._id,cookies)'>
+  </form>
+  <div ng-repeat = "x in topic.posts ">
+    <p> <a href="#!/user/{{x.user.id}}">{{x.user.name}}</a>posted: {{x.post}}</p>
+    <p>likes: {{x.like}} | dislikes: {{x.dislike}}</p>
+    <form>
+      <input type="submit" value="like" ng-click = "Like(cookies.id,x._id)">
+    </form>
+    <form >
+      <input type="submit"value="dislike" ng-click= "disLike(cookies.id,x._id)">
+    </form>
+    <div ng-repeat = " y in x.comments">
+      <p><a href="#!/user/{{y.user.id}}">{{y.user.name}}</a> commented: {{y.comment}}</p>
+    </div>
+
+    <form ng-submit = "addComment(x._id, cookies)">
+      <textarea  rows="2" cols="60" ng-model = "newcomment[x._id].comment" placeholder="Add a comment"></textarea>
+      <input type="submit" value="Add a Comment" >
+    </form>
+  </div>
+
+</div>
+</div>
