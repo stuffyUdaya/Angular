@@ -1,6 +1,9 @@
 <div ng-controller = "showuserController">
   <p>Hi you are in user page</p>
-  <p>Name: {{user.user.name.first}} {{user.user.name.last}}</p>
-  <p>username: {{user.user.username}}</p>
+  <p>Name: {{user.user[0].name.first}} {{user.user[0].name.last}}</p>
+  <p>username: {{user.user[0].username}} posted</p>
 
+  <p>posts: {{user.posts.length}}</p>
+  <p>comments: {{user.comments.length}}</p>
+  <p>Topics: {{user.topics.length}}</p>
 </div>

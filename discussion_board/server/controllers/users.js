@@ -1,6 +1,11 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User')
+var Topic = mongoose.model('Topic')
+var Post = mongoose.model('Post')
+var Comment = mongoose.model('Comment')
 var bcrypt = require('bcrypt');
+
+
 module.exports = {
 
   add:   function(req,res){
@@ -44,7 +49,7 @@ module.exports = {
                         }
                         else{
                           console.log("invalid password");
-                          res.json({logged_in:false, err:"Incalid Password"})
+                          res.json({logged_in:false, err:"Invalid Password"})
                         }
                       }
                       else{
@@ -69,11 +74,41 @@ module.exports = {
 
 showuser     : function(req,res){
 
-  User.findOne({_id:req.params.id},function(err,user){
+  console.log("paramsid",req.params.id);
+
+  Topic.find({"user.id" :req.params.id},function(err,topics){
     if(err){
       console.log("went wrong", err);
     }
-    res.json({user:user})
+  else{
+    Post.find({"user.id": req.params.id},function(err,posts){
+          if(err){
+            console.log("went wrong");
+          }
+          else{
+          console.log(posts);
+          Comment.find({"user.id": req.params.id},function(err,comments){
+            if(err){
+              console.log("went wrong",err);
+            }
+            else{
+            console.log(comments);
+            User.find({_id: req.params.id},function(err,user){
+              if(err){
+                console.log("went wrong",err);
+              }
+              else{
+                console.log(user);
+                res.json({'user':user,'topics':topics,'posts':posts,'comments':comments});
+              }
+            })
+          }
+          })
+        }
+        })
+      }
+
+    // console.log("topic",topics,"posts",posts,"comments",comments);
   })
 }
 

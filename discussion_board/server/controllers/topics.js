@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Topic = mongoose.model('Topic')
 var Post = mongoose.model('Post');
+var User = mongoose.model('User');
 
 module.exports = {
 addtopic : function(req,res){
@@ -15,6 +16,30 @@ addtopic : function(req,res){
 
     }
     else{
+      console.log("topics",topic);
+      // User.findOne({_id: req.body.user.id},function(err,user){
+      //   if(err){
+      //     console.log("error",err)
+      //   }
+      //   else{
+      //     console.log("#########################")
+      //     console.log("topics",topic);
+      //     console.log("#########################")
+      //     console.log("user is ",user)
+      //
+      //     user.topics.push(topic);
+      //     console.log(user.topics);
+      //     user.save(function(err){
+      //       if(err){
+      //       console.log("went wrong",err);
+      //     }
+      //     else{
+      //       console.log("topic pushed successfully")
+      //     }
+      //     })
+      //
+      //   }
+      // })
       console.log("topic created successfully");
       res.json({create_topic:true,msg:"topic created successfully"})
     }

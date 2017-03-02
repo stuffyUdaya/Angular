@@ -1,6 +1,6 @@
 var mongoose       = require('mongoose');
 var bcrypt = require('bcryptjs');
-
+var Schema = mongoose.Schema;
 var UserSchema = new mongoose.Schema({
 
       name: {
@@ -40,7 +40,7 @@ var UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 8,
-        maxlength: 32,
+        maxlength: 256,
         validate: [{
           validator: function( value ) {
             return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,32}/.test( value );
@@ -68,6 +68,11 @@ var UserSchema = new mongoose.Schema({
       ],
       required: [true, "User email required"]
     },
+
+    topics : [{type: Schema.Types.ObjectId, ref: 'Topic'}],
+    posts : [{type: Schema.Types.ObjectId, ref: 'Post'}],
+    comments : [{type: Schema.Types.ObjectId, ref: 'Comment'}]
+
 
       }, {timestamps:true});
 

@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Post = mongoose.model('Post')
 var Topic = mongoose.model('Topic')
+var User = mongoose.model('User');
 module.exports = {
   addpost :  function(req,res){
     console.log("coming from posts controller", req.body);
@@ -15,7 +16,38 @@ module.exports = {
       console.log("post", post);
 
       post.save(function(err){
+        if(err){
+          console.log("went wrong",err);
+        }
+        else{
         topic.posts.push(post);
+        /////////
+
+        // User.findOne({_id: req.body.user.id},function(err,user){
+        //   if(err){
+        //     console.log("error",err)
+        //   }
+        //   else{
+        //     console.log("#########################")
+        //     console.log("posts",post);
+        //     console.log("#########################")
+        //     console.log("user is ",user)
+        //
+        //     user.posts.push(post);
+        //     console.log(user.posts);
+        //     user.save(function(err){
+        //       if(err){
+        //       console.log("went wrong",err);
+        //     }
+        //     else{
+        //       console.log("post pushed successfully")
+        //     }
+        //     })
+        //
+        //   }
+        // })
+
+        ////////
         topic.save(function(err){
           if(err){
             console.log("something went wrong");
@@ -25,6 +57,7 @@ module.exports = {
             res.json({post_created:'true', post:post});
           }
         })
+      }
       })
 
     })
