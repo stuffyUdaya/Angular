@@ -39,18 +39,19 @@ $scope.addComment = function(id,c_user){
 
 }
 
-$scope.Like = function(id,post){
+$scope.Like = function(id,post,user_post){
   console.log(id);
   console.log(post);
-  userFactory.addLike(id,post,function(data){
+  console.log("user id of the guy whoposted",user_post);
+  userFactory.addLike(id,post,user_post,function(data){
     console.log(id);
     console.log(post);
     console.log("data from like", data);
   })
 }
 
-$scope.disLike = function(id,post){
-  userFactory.adddisLike(id,post,function(data){
+$scope.disLike = function(id,post,user_post){
+  userFactory.adddisLike(id,post,user_post,function(data){
     console.log("data from dislike",data);
   })
 }

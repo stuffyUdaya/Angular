@@ -107,10 +107,11 @@ factory.saveComment = function(id,comment,callback){
   })
 }
 
-factory.addLike = function(id,post,callback){
+factory.addLike = function(id,post,uid,callback){
   console.log('user',id);
   console.log('post',post);
-  $http.post('/addlike/'+post).then(function(response){
+  console.log("user posted", uid);
+  $http.post('/addlike/'+post,{id:id}).then(function(response){
     // for x in topic.posts{
     //   if(topic.posts)
     // }
@@ -127,10 +128,10 @@ factory.addLike = function(id,post,callback){
   })
 }
 
-factory.adddisLike = function(id,post,callback){
+factory.adddisLike = function(id,post,uid,callback){
   console.log('user',id);
   console.log('post',post);
-  $http.post('/adddislike/'+post).then(function(response){
+  $http.post('/adddislike/'+post, {id:id} ).then(function(response){
     // for x in topic.posts{
     //   if(topic.posts)
     // }

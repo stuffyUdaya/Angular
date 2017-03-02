@@ -51,7 +51,9 @@ app.post('/addcomment/:id',function(req,res){
 })
 
 app.post('/addlike/:id',function(req,res){
-  console.log("coming from add like", req);
+  console.log('$$$$$$$$$$$$$$$$$$$$$$$$$')
+  console.log("coming from add like", req.body);
+  console.log('$$$$$$$$$$$$$$$$$$$$$$$$$')
   console.log(req.params.id)
   posts.addlike(req,res);
 })

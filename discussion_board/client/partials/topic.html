@@ -17,10 +17,10 @@
     <p> <a href="#!/user/{{x.user.id}}">{{x.user.name}}</a>posted: {{x.post}}</p>
     <p>likes: {{x.like}} | dislikes: {{x.dislike}}</p>
     <form>
-      <input type="submit" value="like" ng-click = "Like(cookies.id,x._id)">
+      <input type="submit" value="like" ng-click = "Like(cookies.id,x._id,x.user.id)">
     </form>
     <form >
-      <input type="submit"value="dislike" ng-click= "disLike(cookies.id,x._id)">
+      <input type="submit"value="dislike" ng-click= "disLike(cookies.id,x._id,x.user.id)">
     </form>
     <div ng-repeat = " y in x.comments">
       <p><a href="#!/user/{{y.user.id}}">{{y.user.name}}</a> commented: {{y.comment}}</p>

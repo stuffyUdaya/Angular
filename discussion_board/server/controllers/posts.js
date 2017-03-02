@@ -66,29 +66,71 @@ module.exports = {
 
   addlike : function(req,res){
     console.log("id from addlike",req.params.id);
-    Post.findOneAndUpdate({_id:req.params.id}, { $inc: { like: 1 }},{new:true},function(err,likes){
+    Post.find({_id:req.params.id},function(err,post){
       if(err){
-        console.log("went wrong");
+        console.log("went wrong", err);
       }
+      if(post){
+          console.log("postttttttttt", post[0]._id);
+          if(post[0].user.id == req.body.id){
+            res.json({like:post})
+          }
+          else{
+            Post.findOneAndUpdate({_id:req.params.id}, { $inc: { like: 1 }},{new:true},function(err,likes){
+              if(err){
+                console.log("went wrong");
+              }
 
-      console.log("post",likes)
-      res.json({like:likes})
+              console.log("post",likes)
+              res.json({like:likes})
+            })
+
+          }
+      }
     })
+    // Post.findOneAndUpdate({_id:req.params.id}, { $inc: { like: 1 }},{new:true},function(err,likes){
+    //   if(err){
+    //     console.log("went wrong");
+    //   }
+    //
+    //   console.log("post",likes)
+    //   res.json({like:likes})
+    // })
   },
 
   adddislike : function(req,res){
     console.log("id from dislike",req.params.id);
-    Post.findOneAndUpdate({_id:req.params.id}, { $inc: { dislike: 1 }},{new:true},function(err,dislikes){
+    Post.find({_id:req.params.id},function(err,post){
       if(err){
-        console.log("went wrong");
+        console.log("went wrong", err);
       }
+      if(post){
+          console.log("postttttttttt", post[0]._id);
+          if(post[0].user.id == req.body.id){
+            res.json({like:post})
+          }
+          else{
+            Post.findOneAndUpdate({_id:req.params.id}, { $inc: { dislike: 1 }},{new:true},function(err,dislikes){
+              if(err){
+                console.log("went wrong");
+              }
 
-      console.log("post",dislikes)
-      res.json({like:dislikes})
-    })
+              console.log("post",dislikes)
+              res.json({like:dislikes})
+            })
+
+          }
+    // Post.findOneAndUpdate({_id:req.params.id}, { $inc: { dislike: 1 }},{new:true},function(err,dislikes){
+    //   if(err){
+    //     console.log("went wrong");
+    //   }
+    //
+    //   console.log("post",dislikes)
+    //   res.json({like:dislikes})
+    // })
   }
 
+})
 
-
-
+}
 }
