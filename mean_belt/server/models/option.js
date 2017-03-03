@@ -4,7 +4,11 @@ var Schema = mongoose.Schema;
 
 var OptionSchema = new mongoose.Schema({
 
-  option: {type: String, required: true},
+  option: {
+    type: String,
+    required: true,
+    minlength:3,
+  },
   user:{
     id: String,
     name: String
@@ -12,7 +16,7 @@ var OptionSchema = new mongoose.Schema({
 
   question: {type: Schema.Types.ObjectId, ref: 'Question'},
 
-  
+
 vote : {value: Number},
 
 },

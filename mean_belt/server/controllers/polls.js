@@ -11,30 +11,35 @@ addpoll : function(req,res){
   poll.save(function(err,poll){
     if(err){
       console.log("went wrong",err);
+      res.json({err:err})
 
     }
     else{
       var option1 = new Option ({option: req.body.option1, user:req.body.user, question: poll._id})
       option1.save(function(err,option1){
         if(err){
+          res.json({err:err, msg:"options need to be greater than 3 characters"})
           console.log("went wrong",err);
         }
         else{
           poll.options.push(option1);
           poll.save(function(err,poll){
             if(err){
+
               console.log("went wrong",err);
             }
             else{
                 var option2 = new Option ({option: req.body.option2, user:req.body.user, question: poll._id})
                 option2.save(function(err,option2){
                   if(err){
-                              console.log("went wrong",err);
+                                  res.json({err:err ,msg:"options need to be greater than 3 characters"})
+                                console.log("went wrong",err);
                             }
                   else{
                     poll.options.push(option2);
                     poll.save(function(err,poll){
                       if(err){
+
                         console.log("went wrong",err);
                       }
                       else{
@@ -43,6 +48,7 @@ addpoll : function(req,res){
                         option3.save(function(err,option3){
 
                           if(err){
+                              res.json({err:err,msg:"options need to be greater than 3 characters"})
                                       console.log("went wrong",err);
                                     }
                           else{
@@ -56,6 +62,7 @@ addpoll : function(req,res){
                                 var option4 = new Option ({option: req.body.option4, user:req.body.user, question: poll._id})
                                 option4.save(function(err,option4){
                                   if(err){
+                                              res.json({err:err, msg:"options need to be greater than 3 characters"})
                                               console.log("went wrong",err);
                                             }
 

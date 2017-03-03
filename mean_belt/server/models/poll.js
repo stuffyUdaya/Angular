@@ -1,7 +1,11 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var PollSchema = new mongoose.Schema({
-  question: String,
+  question: {
+    type: String,
+    required:true,
+    minlength:8
+  },
 
   user: {
     id: String,
