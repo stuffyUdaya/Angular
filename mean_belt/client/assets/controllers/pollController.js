@@ -1,5 +1,8 @@
 myApp.controller('pollController',['$scope','userFactory','$http','$location','$routeParams','$cookies',function($scope,userFactory,$http,$location,$routeParams,$cookies){
-
+var cookieJar = $cookies.getAll();
+if(!cookieJar.id){
+  $location.url('/')
+}
 $scope.savePoll = function(user){
   console.log(user);
   $scope.newpoll.user = user;

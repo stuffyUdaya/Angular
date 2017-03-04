@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app = 'myApp'>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <script src="angular/angular.js"></script>
+<script src="angular-route/angular-route.js"></script>
+
+
+<script src ="/assets/app.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src = "/assets/factories/userFactory.js"></script>
+<script src = "/assets/controllers/addController.js"></script>
+<script src = "/assets/controllers/subController.js"></script>
+<script src = "/assets/controllers/fooController.js"></script>
+<script src = "/assets/controllers/dosomeController.js"></script>
+
+
+
+
+
+  </head>
+  <body>
+
+
+
+
+
+
+            <div ng-app='myApp'>
+              <canvas id="myCanvas" width="500" height="100" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<script>
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+ctx.font = "30px Arial";
+ctx.strokeText("Drag your button here",10,50);
+</script>
+
+
+              <h2>Welcome to drag and drop</h2>
+              <a href="#!/add"><button type="button" name="button">Add</button></a>
+              <a href="#!/subtract"><button type="button" name="button" draggable = "true">Subtract</button></a>
+              <a href="#!/foo"><button type="button" name="button">foo</button></a>
+              <a href="#!/dosome"><button type="button" name="button" draggable = "true"ondragstart="#!/dosome">dosomething</button></a>
+
+            </div>
+
+            <div ng-view> </div>
+
+
+
+
+
+  </body>
+</html>

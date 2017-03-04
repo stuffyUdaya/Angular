@@ -5,6 +5,10 @@ console.log($cookies);
 var cookieJar = $cookies.getAll();
 $scope.cookies = cookieJar
 
+if(!cookieJar){
+  $location.url('/')
+}
+
 console.log("cookies",cookieJar);
 $scope.user = {};
 
